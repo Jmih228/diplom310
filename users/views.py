@@ -7,6 +7,7 @@ from users.models import CustomUser
 from random import choice
 from string import printable
 from time import sleep
+from users.permissions import IsProfileOwner
 
 
 class UserCreateAPIView(generics.CreateAPIView):
@@ -30,7 +31,7 @@ class UserCreateAPIView(generics.CreateAPIView):
 class UserUpdateAPIView(generics.UpdateAPIView):
     serializer_class = CustomUserSerializer
     queryset = CustomUser.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsProfileOwner]
 
     def put(self, request, *args, **kwargs):
 
